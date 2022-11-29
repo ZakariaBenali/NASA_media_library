@@ -25,7 +25,9 @@ const Home: React.FC = () => {
 			retry: 2,
 			getNextPageParam: (lastPage) => {
 				const metaData = lastPage.collection.links && lastPage.collection.links.find((link) => link.rel === 'next');
-				return metaData && metaData.href;
+				const link = metaData && metaData.href;
+				const secureLink = link && link.includes('http://') && link.replace('http://', 'https://');
+				return secureLink;
 			},
 		});
 	return (
