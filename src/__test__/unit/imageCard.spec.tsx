@@ -2,6 +2,7 @@ import { render, screen } from '../test-utils';
 import { ImageCard } from 'components/pages/Home/ImageCard';
 import { IData, ILink } from 'types/collection';
 import { SearchResponse } from '__mocks__/SearchResponse';
+import { mockIntersectionObserver } from '__mocks__/intersectionObserver';
 
 describe('Test home image component', () => {
 	let props: {
@@ -9,6 +10,7 @@ describe('Test home image component', () => {
 		image: ILink['href'];
 	};
 	beforeEach(() => {
+		mockIntersectionObserver();
 		if (!props) {
 			props = {
 				details: SearchResponse.collection.items[0].data[0],
