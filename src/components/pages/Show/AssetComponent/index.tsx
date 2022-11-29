@@ -12,7 +12,7 @@ const AssetComponent: React.FC<IProps> = ({ data }) => {
 	}, [data]);
 
 	return (
-		<div className="bg-black w-full h-image flex items-center justify-center flex-shrink-0 relative  text-white">
+		<div className="bg-black w-full h-96 md:h-image flex items-center justify-center flex-shrink-0 relative  text-white">
 			{asset?.large && (
 				<a
 					href={asset?.large}

@@ -13,6 +13,11 @@ module.exports = {
 				xl: '1280px',
 				'2xl': '1600px',
 			},
+			padding: {
+				DEFAULT: '1rem',
+				sm: '2rem',
+				lg: '0',
+			},
 		},
 
 		extend: {
