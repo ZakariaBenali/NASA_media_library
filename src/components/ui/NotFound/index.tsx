@@ -9,7 +9,7 @@ const NotFound: React.FC<IProps> = ({ className }) => {
 	return (
 		<section
 			className={cls(
-				'bg-primary-100 min-h-screen w-full flex flex-col items-center text-center justify-center text-primary-700',
+				'bg-primary-100 h-screen w-full flex flex-col items-center text-center justify-center text-primary-700 py-24',
 				className,
 			)}
 		>
