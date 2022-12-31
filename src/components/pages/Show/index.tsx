@@ -14,7 +14,7 @@ import { showDetailQuery } from 'routes/loaders/showLoader';
 const Show: React.FC = () => {
 	const { nasa_id } = useParams<'nasa_id'>() as { nasa_id: string };
 	const { queryKey, queryFn } = showDetailQuery(nasa_id);
-	const { data, isLoading } = useQuery(queryKey, queryFn, {
+	const { data } = useQuery(queryKey, queryFn, {
 		enabled: Boolean(nasa_id),
 		refetchOnWindowFocus: false,
 		retry: 2,
@@ -34,23 +34,14 @@ const Show: React.FC = () => {
 				<img src={logo} className="w-14 mx-auto" alt="Logo" />
 			</header>
 			<article className="w-full mt-4">
-				<MainTitle
-					isLoading={isLoading}
-					date={data?.metaData['AVAIL:DateCreated']}
-					title={data?.metaData['AVAIL:Title']}
-				/>
+				<MainTitle date={data?.metaData['AVAIL:DateCreated']} title={data?.metaData['AVAIL:Title']} />
 				<div className="bg-white mt-4 shadow-lg shadow-primary-300 rounded-2xl p-6 flex flex-col">
 					<AssetComponent data={data?.assets.collection} />
 					<main className="pt-8 flex-1">
-						<DetailSingle
-							isLoading={isLoading}
-							label="Description"
-							data={data?.metaData['AVAIL:Description']}
-							isParagraph
-						/>
-						<DetailSingle isLoading={isLoading} label="Location" data={data?.metaData['AVAIL:Location']} />
-						<DetailSingle isLoading={isLoading} label="Photographer" data={data?.metaData['AVAIL:Photographer']} />
-						<Keywords isLoading={isLoading} keywords={data?.metaData['AVAIL:Keywords']} />
+						<DetailSingle label="Description" data={data?.metaData['AVAIL:Description']} isParagraph />
+						<DetailSingle label="Location" data={data?.metaData['AVAIL:Location']} />
+						<DetailSingle label="Photographer" data={data?.metaData['AVAIL:Photographer']} />
+						<Keywords keywords={data?.metaData['AVAIL:Keywords']} />
 					</main>
 				</div>
 			</article>
