@@ -5,9 +5,10 @@ import { RouterProvider } from 'react-router-dom';
 import { router } from 'routes/router';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
-import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
+import { QueryClientProvider } from '@tanstack/react-query';
+import { initializeQueryClient } from 'lib/queryClient';
 
-const queryClient = new QueryClient();
+const queryClient = initializeQueryClient();
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
 	<React.StrictMode>

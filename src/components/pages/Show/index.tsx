@@ -1,7 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
 import logo from '/assets/images/logo.png';
-import { getShowData } from 'services/show';
 import { DetailSingle } from './DetailSingle';
 import { Keywords } from './Keywords';
 import { MainTitle } from './MainTitle';
@@ -9,12 +8,13 @@ import { AssetComponent } from './AssetComponent';
 import axios from 'axios';
 import { formatAxiosErrors } from 'helpers/formatErrors';
 import { toast } from 'react-toastify';
-import { NotFound } from 'components/ui/NotFound';
 import { GoBackButton } from 'components/ui/GoBackButton';
+import { showDetailQuery } from 'routes/loaders/showLoader';
 
 const Show: React.FC = () => {
-	const { nasa_id } = useParams<'nasa_id'>();
-	const { data, isLoading, error, isError } = useQuery(['metadata', nasa_id], () => getShowData(nasa_id), {
+	const { nasa_id } = useParams<'nasa_id'>() as { nasa_id: string };
+	const { queryKey, queryFn } = showDetailQuery(nasa_id);
+	const { data, isLoading } = useQuery(queryKey, queryFn, {
 		enabled: Boolean(nasa_id),
 		refetchOnWindowFocus: false,
 		retry: 2,
@@ -26,10 +26,6 @@ const Show: React.FC = () => {
 			toast.error(message);
 		},
 	});
-
-	if (isError && axios?.isAxiosError(error) && error.response?.status === 404) {
-		return <NotFound className="!min-h-full" />;
-	}
 
 	return (
 		<section id="home" className="flex flex-col items-center  justify-center">
