@@ -31,7 +31,9 @@ const Show: React.FC = () => {
 		<section id="home" className="flex flex-col items-center  justify-center">
 			<header className="flex flex-col-reverse md:flex-row items-center w-full relative">
 				<GoBackButton to="/" className="md:absolute" />
-				<img src={logo} className="w-14 mx-auto" alt="Logo" />
+				<div className="h-14 w-14 mx-auto">
+					<img src={logo} className="w-full h-full object-contain" alt="Logo" />
+				</div>
 			</header>
 			<article className="w-full mt-4">
 				<MainTitle date={data?.metaData['AVAIL:DateCreated']} title={data?.metaData['AVAIL:Title']} />
