@@ -5,6 +5,7 @@ import { ISearchParams } from 'types/search';
 import { SearchInput } from './SearchInput';
 import * as yup from 'yup';
 import { FormError } from './FormError';
+import { getSearchParams, setCurrentUrlSearchParams } from 'helpers/searchParams';
 
 interface IProps {
 	setSearchParams: React.Dispatch<React.SetStateAction<ISearchParams>>;
@@ -38,17 +39,13 @@ const SearchBar: React.FC<IProps> = ({ setSearchParams, searchParams, apiError, 
 			initialValues={searchParams}
 			validationSchema={validationSchema}
 			onSubmit={async (values) => {
-				const { q, year_start, year_end } = values;
-				const newSearchParams = {
-					q,
-					...(year_start && { year_start }),
-					...(year_end && { year_end }),
-				};
-				setSearchParams(newSearchParams);
+				const params = getSearchParams(values);
+				setCurrentUrlSearchParams(params);
+				setSearchParams(params);
 			}}
 		>
 			{({ values, errors, touched, handleChange, handleBlur, handleSubmit }) => (
-				<form onSubmit={handleSubmit} className="mb-20">
+				<form method="GET" onSubmit={handleSubmit} className="mb-20">
 					{(apiError || Object.keys(touched).length > 0) && <FormError validationErrors={errors} apiError={apiError} />}
 					<div className="rounded-2xl flex flex-col items-center lg:bg-white lg:flex-row lg:shadow-xl lg:shadow-primary-300 pr-3">
 						<div className="rounded-2xl flex flex-col items-center md:bg-white md:shadow-xl md:shadow-primary-300 md:flex-row lg:bg-transparent lg:shadow-none">

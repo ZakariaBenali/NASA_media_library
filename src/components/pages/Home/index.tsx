@@ -9,13 +9,18 @@ import { Button } from 'components/ui/Button';
 import { SearchResult } from './SearchResult';
 import { NoDataFound } from './SearchResult/NoDataFound';
 
-const Home: React.FC = () => {
-	const [searchParams, setSearchParams] = useState<ISearchParams>({
-		q: '',
-		year_start: '',
-		year_end: '',
+const lazyInitSearchParamsState = () => {
+	const query = new URLSearchParams(window.location.search);
+	return {
+		q: query.get('q') ?? '',
+		year_start: query.get('year_start') ?? '',
+		year_end: query.get('year_end') ?? '',
 		page: 1,
-	});
+	};
+};
+
+const Home: React.FC = () => {
+	const [searchParams, setSearchParams] = useState<ISearchParams>(lazyInitSearchParamsState);
 
 	const { data, error, status, fetchStatus, fetchNextPage, hasNextPage, isFetchingNextPage, isPreviousData, isError } =
 		useInfiniteQuery(['search', searchParams], ({ pageParam }) => searchByQuery(searchParams, pageParam), {
