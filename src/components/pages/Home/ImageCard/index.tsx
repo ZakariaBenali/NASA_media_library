@@ -11,6 +11,9 @@ const ImageCard: React.FC<IProps> = ({ details, image }) => {
 	return (
 		<Link
 			to={`/show/${details.nasa_id}`}
+			state={{
+				from: true,
+			}}
 			className="group w-full max-w-sm h-64 relative rounded-md mx-2 mb-3 overflow-hidden cursor-pointer"
 		>
 			<ImageComponent
